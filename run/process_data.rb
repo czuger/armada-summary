@@ -17,8 +17,8 @@ def process_squadrons( data )
 
     squadron[ :name ] = match[ 1 ].strip
 
-    squadron[ :veteran ] = squadron_data.pop
-    squadron[ :scarred ] = squadron_data.pop
+    squadron[ :veteran ] = squadron_data.pop == 'Yes'
+    squadron[ :scarred ] = squadron_data.pop == 'Yes'
     squadron[ :cost ] = squadron_data.pop.to_i
 
     squadron[ :unique ] = ( match[ 3 ] == '*' )
@@ -44,11 +44,11 @@ def process_ships( data )
     ship[ :ship_cost ] = match[ 2 ].to_i
 
     title = ship_data.shift.match( /([^(]+)/ )
-    ship[ :title ] = title[ 1 ].strip if title
+    ship[ :title ] = title[ 1 ].gsub( "\n", ' ' ).strip if title
 
-      ship[ :veteran ] = ship_data.pop
-    ship[ :scarred ] = ship_data.pop
-    ship[ :flagship ] = ship_data.pop
+      ship[ :veteran ] = ship_data.pop == 'Yes'
+    ship[ :scarred ] = ship_data.pop == 'Yes'
+    ship[ :flagship ] = ship_data.pop == 'Yes'
     ship[ :cost ] = ship_data.pop.to_i
     ship[ :upgrades ] = []
 
@@ -73,6 +73,5 @@ data.each do |k, v|
   v[ :ships ] = process_ships( v[ :ships ] )
   v[ :squadrons ] = process_squadrons( v[ :squadrons ] )
 end
-
 
 File.open( '../data/processed_data.yaml', 'w' ){ |f| f.write( data.to_yaml ) }
