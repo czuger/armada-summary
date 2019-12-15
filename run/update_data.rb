@@ -63,4 +63,4 @@ players.each do |sheet|
   data[ sheet ][ :squadrons ] = response.values
 end
 
-File.open( 'data.yaml', 'w' ){ |f| f.write( data.to_yaml ) }
+File.open( '../data/data.yaml', 'w' ){ |f| f.write( data.to_yaml ) }
