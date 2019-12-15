@@ -48,13 +48,13 @@ service.authorization = authorize
 spreadsheet_id = "1O2KIwiN-_KcSo3777loMsjhZskw-zLUAkJ0xSxPIk7M"
 
 data = {}
-players = YAML.load_file( 'players_list.yaml' )
+players = YAML.load_file( '../data/players_list.yaml' )
 
 p players
 
-players.each do |sheet|
+players.each do |sheet, max_range|
 
-  range = "#{sheet}!B6:W17"
+  range = "#{sheet}!B6:#{max_range}17"
   response = service.get_spreadsheet_values spreadsheet_id, range
   data[ sheet ] = { ships: response.values }
 

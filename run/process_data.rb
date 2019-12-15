@@ -11,9 +11,19 @@ def process_squadrons( data )
     squadron[ :name ] = squadron_data.shift.gsub( "\n", ' ' )
     next if squadron[ :name ] == ''
 
+    # p squadron[ :name ]
+    match = squadron[ :name ].match( /([^(]+)\(([^)0-9]*)[^\*]+(\*?)/ )
+    # p match
+
+    squadron[ :name ] = match[ 1 ].strip
+
     squadron[ :veteran ] = squadron_data.pop
     squadron[ :scarred ] = squadron_data.pop
     squadron[ :cost ] = squadron_data.pop.to_i
+
+    squadron[ :unique ] = ( match[ 3 ] == '*' )
+    squadron[ :unique_name ] = match[ 2 ] if squadron[ :unique ]
+
 
     squadron_array << squadron
   end
@@ -28,9 +38,15 @@ def process_ships( data )
     ship[ :name ] = ship_data.shift.gsub( "\n", ' ' )
     next if ship[ :name ] == ''
 
-    ship[ :ship_cost ] = ship[ :name ].match( /.*\((\d+)\)/ )[1].to_i
+    match = ship[ :name ].match( /(.*)\((\d+)\)/ )
 
-    ship[ :veteran ] = ship_data.pop
+    ship[ :name ] = match[ 1 ].strip
+    ship[ :ship_cost ] = match[ 2 ].to_i
+
+    title = ship_data.shift.match( /([^(]+)/ )
+    ship[ :title ] = title[ 1 ].strip if title
+
+      ship[ :veteran ] = ship_data.pop
     ship[ :scarred ] = ship_data.pop
     ship[ :flagship ] = ship_data.pop
     ship[ :cost ] = ship_data.pop.to_i
@@ -41,7 +57,11 @@ def process_ships( data )
 
       next unless data
       next if data == ''
-      ship[ :upgrades ] << data.gsub( "\n", ' ' )
+
+      # p data.gsub( "\n", ' ' )
+      # data.gsub( "\n", ' ' ).match( /(.*)\(/ )[ 1 ]
+
+      ship[ :upgrades ] << data.gsub( "\n", ' ' ).match( /(.*)\(/ )[ 1 ].strip
     end
 
     ship_array << ship
@@ -51,7 +71,7 @@ end
 
 data.each do |k, v|
   v[ :ships ] = process_ships( v[ :ships ] )
-  v[ :squadrons ] = process_ships( v[ :squadrons ] )
+  v[ :squadrons ] = process_squadrons( v[ :squadrons ] )
 end
 
 
