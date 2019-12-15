@@ -59,4 +59,4 @@ build-iPhoneSimulator/
 credentials.json
 token.yaml
 data.yaml
-players.yaml
+players_list.yaml

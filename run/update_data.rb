@@ -48,7 +48,7 @@ service.authorization = authorize
 spreadsheet_id = "1O2KIwiN-_KcSo3777loMsjhZskw-zLUAkJ0xSxPIk7M"
 
 data = {}
-players = YAML.load_file( 'players.yaml' )
+players = YAML.load_file( 'players_list.yaml' )
 
 p players
 
