@@ -11,9 +11,7 @@ def process_squadrons( data )
     squadron[ :name ] = squadron_data.shift.gsub( "\n", ' ' )
     next if squadron[ :name ] == ''
 
-    # p squadron[ :name ]
     match = squadron[ :name ].match( /([^(]+)\(([^)0-9]*)[^\*]+(\*?)/ )
-    # p match
 
     squadron[ :name ] = match[ 1 ].strip
 
@@ -57,9 +55,6 @@ def process_ships( data )
 
       next unless data
       next if data == ''
-
-      # p data.gsub( "\n", ' ' )
-      # data.gsub( "\n", ' ' ).match( /(.*)\(/ )[ 1 ]
 
       ship[ :upgrades ] << data.gsub( "\n", ' ' ).match( /(.*)\(/ )[ 1 ].strip
     end
