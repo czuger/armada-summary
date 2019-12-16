@@ -1,9 +1,9 @@
 class PlayersDetect
 
-  def do( service , spreadsheet_id )
+  def initialize( google_spreadsheet )
     @players = []
 
-    sheet_data = service.get_spreadsheet spreadsheet_id
+    sheet_data = google_spreadsheet.service.get_spreadsheet google_spreadsheet.spreadsheet_id
     sheets_copy = sheet_data.sheets.clone
 
     sheets_copy.shift( 2 )
@@ -14,8 +14,10 @@ class PlayersDetect
       name = sheet.properties.title
       @players << name
     end
+  end
 
-    @players
+  def each
+    @players.each{ |player| yield player }
   end
 
 end

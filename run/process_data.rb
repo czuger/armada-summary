@@ -1,7 +1,7 @@
 require 'pp'
 require 'yaml'
 
-data = YAML.load_file( '../data/data.yaml' )
+data = YAML.load_file( 'data/data.yaml' )
 
 def process_squadrons( data )
   squadron_array = []
@@ -44,7 +44,8 @@ def process_ships( data )
     title = ship_data.shift.match( /([^(]+)/ )
     ship[ :title ] = title[ 1 ].gsub( "\n", ' ' ).strip if title
 
-      ship[ :veteran ] = ship_data.pop == 'Yes'
+    ship_data.pop
+    ship[ :veteran ] = ship_data.pop == 'Yes'
     ship[ :scarred ] = ship_data.pop == 'Yes'
     ship[ :flagship ] = ship_data.pop == 'Yes'
     ship[ :cost ] = ship_data.pop.to_i
@@ -69,4 +70,4 @@ data.each do |k, v|
   v[ :squadrons ] = process_squadrons( v[ :squadrons ] )
 end
 
-File.open( '../data/processed_data.yaml', 'w' ){ |f| f.write( data.to_yaml ) }
+File.open( 'data/processed_data.yaml', 'w' ){ |f| f.write( data.to_yaml ) }
