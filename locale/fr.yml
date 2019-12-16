@@ -6,22 +6,26 @@ fr:
     total_repair: Réparation total
     repair_shipyards: Chantiers de réparation
     bill: Reste a payer
-
-  expansions:
-    G-8 Experimental Projector: Générateur expérimental G-8
+  fleet:
+    adm: " <Adm>"
+    scarred: Avarié
+    veteran: Vétéran
+    unique: unique
+  :expansions:
+    G-8 Experimental Projector: G-8 Experimental Projector
     Ion Cannon Batteries: Ion Cannon Batteries
-    Flight Controllers: Contrôleur de vol
-    Assault Concussion Missiles: Missils à concussion d'assaut
-    Ordnance Experts: Experts en artillerie
-    Flight Commander: Commandant d'escadrille
-    Redundant Shields: Boucliers redondants
-    Expanded Hangar Bay: Hangars agrandis
-    High-Capacity Ion Turbines: Turbines ioniques à haute capacité
-    Expanded Launchers: Propulseurs agrandis
-    SW-7 Ion Batteries: Batteries ioniques SW-7
-    Reinforced Blast Doors: Portes anti-explosions renforcées
-    Bomber Command Center: Centre de commandement de bombardement
-    Assault Proton Torpedoes: Torpilles à proton d'assaut
-    MS-1 Ion Cannon: Canons ioniques MS-A
-    Spinal Armament: Armement dorsal
-    Gunnery Team: Equipe d'artilleurs
+    Flight Controllers: Flight Controllers
+    Assault Concussion Missiles: Assault Concussion Missiles
+    Ordnance Experts: Ordnance Experts
+    Flight Commander: Flight Commander
+    Redundant Shields: Redundant Shields
+    Expanded Hangar Bay: Expanded Hangar Bay
+    High-Capacity Ion Turbines: High-Capacity Ion Turbines
+    Expanded Launchers: Expanded Launchers
+    SW-7 Ion Batteries: SW-7 Ion Batteries
+    Reinforced Blast Doors: Reinforced Blast Doors
+    Bomber Command Center: Bomber Command Center
+    Assault Proton Torpedoes: Assault Proton Torpedoes
+    MS-1 Ion Cannon: MS-1 Ion Cannon
+    Spinal Armament: Spinal Armament
+    Gunnery Team: Gunnery Team
