@@ -22,7 +22,7 @@ data.each do |player, fleet|
 
     if I18n.locale == :fr
       ship[ :upgrades ].each do |upgrade|
-        add_fr_translation( upgrade ) unless I18n.exists?(upgrade, :fr )
+        add_fr_translation( upgrade ) unless I18n.exists?("expansions.#{upgrade}", :fr )
       end
     end
 
