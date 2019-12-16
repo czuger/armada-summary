@@ -26,8 +26,8 @@ data.each do |player, fleet|
   fleet[:ships].sort_by {|ship| [ ship[ :flagship ], ship[ :scarred ], ship[ :veteran ] ].join( '' ) }.reverse.each do |ship|
 
     title = ( ship[ :title ] ? " (#{ship[ :title ]})" : '' )
-    amiral = ( ship[ :flagship ] ? ' <Adm>' : '' )
-    ship_print = [ ship[ :name ] + title + amiral ]
+    admiral = ( ship[ :flagship ] ? ' <Adm>' : '' )
+    ship_print = [ ship[ :name ] + title + admiral ]
     ship_print << (ship[ :scarred ] ? "Avarié ( #{ '%02d' % ( ship[ :ship_cost ] / 2.0 ).ceil } )" : '')
     ship_print << (ship[ :veteran ] ? 'Vétéran' : '')
 

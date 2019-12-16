@@ -1,10 +1,10 @@
 require 'yaml'
 require 'i18n'
 require 'pp'
+require_relative 'libs/players_detect'
 
 data = YAML.load_file( 'data/processed_data.yaml' )
-
-repairs = { 'Empire' => 35, 'Reb' => 40 }
+players = PlayersDetect.new.load
 
 data.each do |player, fleet|
   puts '*' * 40
@@ -15,7 +15,7 @@ data.each do |player, fleet|
   squadron_cost = fleet[:squadrons].map{ |ship| ( ship[ :cost ] / 2.0 ).ceil if ship[ :scarred ] }.compact.inject( &:+ )
   total = fleet_cost + squadron_cost
 
-  repair = repairs[ admirals[ player ][ 'side' ] ]
+  repair = players.repair player
 
   remain = total - repair
 

@@ -6,12 +6,17 @@ class PlayersDetect
     @gs = google_spreadsheet
   end
 
+  def repair( player )
+    @players[ player ]
+  end
+
   def save
     File.open( FILENAME, 'w' ){ |f| f.write @players.to_yaml }
   end
 
   def load
     @players = YAML.load_file( FILENAME )
+    self
   end
 
   def update
