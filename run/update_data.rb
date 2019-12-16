@@ -1,17 +1,17 @@
-require "google/apis/sheets_v4"
-require "googleauth"
-require "googleauth/stores/file_token_store"
-require "fileutils"
+require 'google/apis/sheets_v4'
+require 'googleauth'
+require 'googleauth/stores/file_token_store'
+require 'fileutils'
 require 'pp'
 require 'yaml'
 
-OOB_URI = "urn:ietf:wg:oauth:2.0:oob".freeze
-APPLICATION_NAME = "Google Sheets API Ruby Quickstart".freeze
-CREDENTIALS_PATH = "credentials.json".freeze
+OOB_URI = 'urn:ietf:wg:oauth:2.0:oob'.freeze
+APPLICATION_NAME = 'Google Sheets API Ruby Quickstart'.freeze
+CREDENTIALS_PATH = '../config/credentials.json'.freeze
 # The file token.yaml stores the user's access and refresh tokens, and is
 # created automatically when the authorization flow completes for the first
 # time.
-TOKEN_PATH = "token.yaml".freeze
+TOKEN_PATH = 'data/token.yaml'.freeze
 SCOPE = Google::Apis::SheetsV4::AUTH_SPREADSHEETS_READONLY
 
 ##
@@ -24,7 +24,7 @@ def authorize
   client_id = Google::Auth::ClientId.from_file CREDENTIALS_PATH
   token_store = Google::Auth::Stores::FileTokenStore.new file: TOKEN_PATH
   authorizer = Google::Auth::UserAuthorizer.new client_id, SCOPE, token_store
-  user_id = "default"
+  user_id = 'default'
   credentials = authorizer.get_credentials user_id
   if credentials.nil?
     url = authorizer.get_authorization_url base_url: OOB_URI
@@ -45,10 +45,17 @@ service.authorization = authorize
 
 # Prints the names and majors of students in a sample spreadsheet:
 # https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
-spreadsheet_id = "1O2KIwiN-_KcSo3777loMsjhZskw-zLUAkJ0xSxPIk7M"
+spreadsheet_id = File.open( '../config/spreadsheet_id.txt' ).read
 
 data = {}
-players = YAML.load_file( '../data/players_list.yaml' )
+# players = YAML.load_file( 'data/players_list.yaml' )
+
+sheet_metadata = service.get_spreadsheet spreadsheet_id
+sheet_metadata.sheets.each do |sheet|
+  pp sheet.properties.title
+end
+
+exit
 
 p players
 
