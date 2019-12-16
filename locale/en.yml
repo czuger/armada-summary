@@ -1,11 +1,11 @@
 ---
-fr:
+en:
   costs:
-    fleet_repair: Réparation flotte
-    squad_repair: Réparation escadrons
-    total_repair: Réparation total
-    repair_shipyards: Chantiers de réparation
-    bill: Reste a payer
+    fleet_repair: Fleet repair
+    squad_repair: Squadrons repair
+    total_repair: Total repair
+    repair_shipyards: Repair shipyards
+    bill: Final bill
 
   expansions:
     G-8 Experimental Projector: Générateur expérimental G-8

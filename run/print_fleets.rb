@@ -1,20 +1,6 @@
 require 'yaml'
-require 'i18n'
+
 require 'pp'
-
-I18n.load_path = Dir['../locale/*.yml']
-I18n.config.available_locales = :fr
-I18n.locale = :fr
-I18n.backend.load_translations
-
-def add_fr_translation( translation )
-  tr = YAML.load_file( '../locale/fr.yml' )
-
-  tr[ 'fr' ] ||= {}
-
-  tr[ 'fr' ][ translation ] = translation
-  File.open( '../locale/fr.yml', 'w' ){ |f| f.write( tr.to_yaml ) }
-end
 
 data = YAML.load_file( 'data/processed_data.yaml' )
 
