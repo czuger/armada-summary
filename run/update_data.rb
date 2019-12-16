@@ -5,6 +5,8 @@ require 'fileutils'
 require 'pp'
 require 'yaml'
 
+require_relative 'libs/players_detect'
+
 OOB_URI = 'urn:ietf:wg:oauth:2.0:oob'.freeze
 APPLICATION_NAME = 'Google Sheets API Ruby Quickstart'.freeze
 CREDENTIALS_PATH = '../config/credentials.json'.freeze
@@ -48,20 +50,12 @@ service.authorization = authorize
 spreadsheet_id = File.open( '../config/spreadsheet_id.txt' ).read
 
 data = {}
-# players = YAML.load_file( 'data/players_list.yaml' )
 
-sheet_metadata = service.get_spreadsheet spreadsheet_id
-sheet_metadata.sheets.each do |sheet|
-  pp sheet.properties.title
-end
+players = PlayersDetect.new.do( service, spreadsheet_id )
 
-exit
+players.each do |sheet|
 
-p players
-
-players.each do |sheet, max_range|
-
-  range = "#{sheet}!B6:#{max_range}17"
+  range = "#{sheet}!B6:Z17"
   response = service.get_spreadsheet_values spreadsheet_id, range
   data[ sheet ] = { ships: response.values }
 
@@ -70,4 +64,4 @@ players.each do |sheet, max_range|
   data[ sheet ][ :squadrons ] = response.values
 end
 
-File.open( '../data/data.yaml', 'w' ){ |f| f.write( data.to_yaml ) }
+File.open( 'data/data.yaml', 'w' ){ |f| f.write( data.to_yaml ) }
