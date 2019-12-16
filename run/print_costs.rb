@@ -1,7 +1,8 @@
 require 'yaml'
-require 'i18n'
 require 'pp'
 require_relative 'libs/players_detect'
+require_relative 'libs/custom_i18n'
+require_relative 'libs/options'
 
 data = YAML.load_file( 'data/processed_data.yaml' )
 players = PlayersDetect.new.load
@@ -19,10 +20,10 @@ data.each do |player, fleet|
 
   remain = total - repair
 
-  puts "Réparation flotte : #{fleet_cost}"
-  puts "Réparation escadrons : #{squadron_cost}"
-  puts "Réparation total : #{total} (#{fleet_cost} + #{squadron_cost})"
-  puts "Chantiers de réparation : #{repair}"
-  puts "Reste a payer : #{remain} (#{total} - #{repair})"
+  puts "#{I18n.t( 'costs.fleet_repair' ) } : #{fleet_cost}"
+  puts "#{I18n.t( 'costs.squad_repair' ) } : #{squadron_cost}"
+  puts "#{I18n.t( 'costs.total_repair' ) } : #{total} (#{fleet_cost} + #{squadron_cost})"
+  puts "#{I18n.t( 'costs.repair_shipyards' ) } : #{repair}"
+  puts "#{I18n.t( 'costs.bill' ) } : #{remain} (#{total} - #{repair})"
   puts
 end
