@@ -60,5 +60,6 @@ credentials.json
 token.yaml
 data.yaml
 admirals.yaml
+players.yaml
 processed_data.yaml
 spreadsheet_id.txt

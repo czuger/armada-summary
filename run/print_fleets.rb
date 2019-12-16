@@ -16,7 +16,7 @@ def add_fr_translation( translation )
   File.open( '../locale/fr.yml', 'w' ){ |f| f.write( tr.to_yaml ) }
 end
 
-data = YAML.load_file( '../data/processed_data.yaml' )
+data = YAML.load_file( 'data/processed_data.yaml' )
 
 data.each do |player, fleet|
   puts '*' * 150

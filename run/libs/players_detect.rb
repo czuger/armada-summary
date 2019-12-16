@@ -1,23 +1,32 @@
 class PlayersDetect
 
-  def initialize( google_spreadsheet )
-    @players = []
+  FILENAME = 'data/players.yaml'
 
-    sheet_data = google_spreadsheet.service.get_spreadsheet google_spreadsheet.spreadsheet_id
-    sheets_copy = sheet_data.sheets.clone
+  def initialize( google_spreadsheet = nil )
+    @gs = google_spreadsheet
+  end
 
-    sheets_copy.shift( 2 )
+  def save
+    File.open( FILENAME, 'w' ){ |f| f.write @players.to_yaml }
+  end
 
-    sheets_copy.each do |sheet|
-      break if sheet.properties.title == 'Data'
+  def load
+    @players = YAML.load_file( FILENAME )
+  end
 
-      name = sheet.properties.title
-      @players << name
-    end
+  def update
+    empire_players = @gs.range( 'Team Status!A7:A9' ).values.flatten
+    empire_reparation_value = @gs.range( 'Team Status!D8' ).values.flatten.first.to_i
+
+    reb_players = @gs.range( 'Team Status!H7:H9' ).values.flatten
+    reb_reparation_value = @gs.range( 'Team Status!F8' ).values.flatten.first.to_i
+
+    @players = Hash[ empire_players.map{ |e| [ e, empire_reparation_value ] } ]
+                 .merge( Hash[ reb_players.map{ |e| [ e, reb_reparation_value ] } ] )
   end
 
   def each
-    @players.each{ |player| yield player }
+    @players.each{ |player, _| yield player }
   end
 
 end

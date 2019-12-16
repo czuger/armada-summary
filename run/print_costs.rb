@@ -2,8 +2,7 @@ require 'yaml'
 require 'i18n'
 require 'pp'
 
-data = YAML.load_file( '../data/processed_data.yaml' )
-admirals = YAML.load_file( '../data/admirals.yaml' )
+data = YAML.load_file( 'data/processed_data.yaml' )
 
 repairs = { 'Empire' => 35, 'Reb' => 40 }
 
